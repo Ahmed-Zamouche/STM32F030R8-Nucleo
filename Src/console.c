@@ -5,9 +5,10 @@
  *      Author: ahmed
  */
 
-
-#include <assert.h>
 #include <stdbool.h>
+#include <string.h>
+#include <assert.h>
+
 
 #include "usart.h"
 
@@ -141,6 +142,33 @@ Console_Status_t Console_ReadLine(enum Console_e idx, uint8_t *pData, uint16_t S
 
 	if (status != HAL_OK) {
 		Console_Unlock(&cRead->lock);
+	}
+
+	return (Console_Status_t) status;
+}
+
+Console_Status_t Console_Puts(enum Console_e idx, const char *str) {
+
+	assert(idx < CONSOLE_NUM);
+
+	HAL_StatusTypeDef status = HAL_UART_Transmit(s_consoleDef[idx].huart, (uint8_t *)str,
+			strlen(str), HAL_MAX_DELAY);
+
+	return (Console_Status_t) status;
+
+}
+
+Console_Status_t Console_WriteAbort(enum Console_e idx)
+{
+	assert(idx< CONSOLE_NUM);
+
+	struct Console_Write_s *cWrite = &s_console[idx].write;
+
+	HAL_StatusTypeDef status;
+	if (cWrite->lock) {
+		 status = HAL_UART_AbortTransmit_IT(s_consoleDef[idx].huart);
+	}else{
+		status = HAL_UART_AbortTransmit(s_consoleDef[idx].huart);
 	}
 
 	return (Console_Status_t) status;

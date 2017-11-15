@@ -47,9 +47,14 @@ typedef void (*Console_CallbackRead_t)(enum Console_e, uint16_t Size);
 typedef void (*Console_CallbackWrite_t)(enum Console_e);
 
 void Console_CallbackReadRegister(enum Console_e idx, Console_CallbackRead_t);
+
 void Console_CallbackWriteRegister(enum Console_e idx, Console_CallbackWrite_t);
 
 Console_Status_t Console_ReadLine(enum Console_e, uint8_t *pData, uint16_t Size);
+
+Console_Status_t Console_Puts(enum Console_e, const char *);
+
+Console_Status_t Console_WriteAbort(enum Console_e);
 
 Console_Status_t Console_Write(enum Console_e, uint8_t *pData, uint16_t Size);
 

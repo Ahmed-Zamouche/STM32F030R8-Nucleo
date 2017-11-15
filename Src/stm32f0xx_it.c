@@ -36,7 +36,7 @@
 #include "stm32f0xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "console.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -138,6 +138,92 @@ void USART1_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+
+
+
+
+void CustomDefault_HandlerC(uint32_t *stack) {
+
+	/* These are volatile to try and prevent the compiler/linker optimising them
+	 away as the variables never actually get used.  If the debugger won't show the
+	 values of the variables, make them global my moving their declaration outside
+	 of this function. */
+	struct CM0_Stack_s {
+		volatile uint32_t r0;
+		volatile uint32_t r1;
+		volatile uint32_t r2;
+		volatile uint32_t r3;
+		volatile uint32_t r12;
+		volatile uint32_t lr; /* Link register. */
+		volatile uint32_t pc; /* Program counter. */
+		volatile uint32_t psr;/* Program status register. */
+	}reg;
+
+	reg.r0  = stack[0];
+	reg.r1  = stack[1];
+	reg.r2  = stack[2];
+	reg.r3  = stack[3];
+
+	reg.r12 = stack[4];
+	reg.lr  = stack[5];
+	reg.pc  = stack[6];
+	reg.psr = stack[7];
+
+	char str[32];
+
+	volatile uint32_t exception_number = (SCB->ICSR & SCB_ICSR_VECTACTIVE_Msk);
+
+	(void) Console_WriteAbort(CONSOLE_1);
+
+	sprintf(str, "\r\nE: Caught Exception %ld\r\n",
+			exception_number);
+	Console_Puts(CONSOLE_1, str);
+
+	sprintf(str , "r0  = 0x%08lx\r\n", reg.r0);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "r1  = 0x%08lx\r\n", reg.r1);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "r2  = 0x%08lx\r\n", reg.r2);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "r3  = 0x%08lx\r\n", reg.r3);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "r12 = 0x%08lx\r\n", reg.r12);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "lr  = 0x%08lx\r\n", reg.lr);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "pc  = 0x%08lx\r\n", reg.pc);
+	Console_Puts(CONSOLE_1, str);
+	sprintf(str , "psr = 0x%08lx\r\n", reg.psr);
+	Console_Puts(CONSOLE_1, str);
+
+	/*__asm volatile("bkpt #01");*/
+
+	while (1) {
+
+	}
+}
+void __attribute__ ((noinline)) CustomDefault_Handler(void)
+{
+	volatile static int dummy = -1;
+
+	  __asm volatile (
+	    " movs r0,#4       			\n"
+	    " movs r1, lr      			\n"
+	    " tst r0, r1       			\n"
+	    " beq _MSP         			\n"
+	    " mrs r0, psp      			\n"
+	    " b _HALT          			\n"
+	  "_MSP:               			\n"
+	    " mrs r0, msp      			\n"
+	  "_HALT:              			\n"
+	    " ldr r1,[r0,#20]  			\n"
+	    " b CustomDefault_HandlerC 	\n"
+	    /*" bkpt #0          			\n"*/
+	  );
+
+    (void) dummy;
+}
 
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

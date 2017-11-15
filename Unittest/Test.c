@@ -36,8 +36,14 @@ static void Console_CallbackWrite(enum Console_e idx) {
 	Led_Toggle(LED_1);
 }
 
+static void Exception_Rise(void)
+{
+	/*HAL_NVIC_EnableIRQ(0);
+	HAL_NVIC_SetPendingIRQ(0);*/
+}
 
 int mainApp(int argc, char **argv) {
+
 	Pwm_CallbackRegister(PWM_CHANNEL_1, Led_Pwm_Callback);
 	Button_CallbackRegister(PWM_CHANNEL_1, Button_Callback);
 	Console_CallbackReadRegister(CONSOLE_1, Console_CallbackRead);
@@ -45,6 +51,10 @@ int mainApp(int argc, char **argv) {
 
 	Console_Write(CONSOLE_1, (uint8_t *) "MainTask\r\n", 10);
 	Console_ReadLine(CONSOLE_1, readBuf, sizeof(readBuf));
+
+	Exception_Rise();
+
+
 	for (;;) {
 		//led_set(LED_1, true);
 		Pwm_SetDutyCycle(PWM_CHANNEL_1, 0);
