@@ -6,6 +6,7 @@
  */
 
 #include <stdint.h>
+#include "misc.h"
 #include "led.h"
 #include "pwm.h"
 #include "button.h"
@@ -58,10 +59,10 @@ int mainApp(int argc, char **argv) {
 	for (;;) {
 		//led_set(LED_1, true);
 		Pwm_SetDutyCycle(PWM_CHANNEL_1, 0);
-		HAL_Delay(5000);
+		delay_ms(5000);
 		//led_set(LED_1, false);
 		Pwm_SetDutyCycle(PWM_CHANNEL_1, 255);
-		HAL_Delay(5000);
+		delay_ms(5000);
 	}
 
 	while (1)
