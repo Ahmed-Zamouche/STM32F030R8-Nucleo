@@ -41,7 +41,7 @@ Application/User
 PERIFLIB_PATH =
 
 # Build path
-BUILD_DIR = build
+BUILD_DIR = _build
 
 ######################################
 # source
@@ -86,7 +86,7 @@ PERIFLIB_SOURCES =
 # binaries
 #######################################
 ifeq ($(OS),Windows_NT)
-BINPATH=C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin
+BINPATH="C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
 else
 BINPATH=~/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
 endif
@@ -177,7 +177,7 @@ vpath %.c $(sort $(dir $(C_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
-unitest: library
+unittest: library
 	$(MAKE) -f mk/unittest.mk
 
 include mk/library.mk

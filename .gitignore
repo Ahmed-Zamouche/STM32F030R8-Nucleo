@@ -68,7 +68,7 @@ mx.scratch
 
 
 #output folder
-build/
+_build/
 install/
 
 core

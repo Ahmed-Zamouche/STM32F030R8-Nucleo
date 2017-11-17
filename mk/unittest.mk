@@ -35,7 +35,7 @@ SOURCES_DIR = Unittest
 PERIFLIB_PATH =
 
 # Build path
-BUILD_DIR = build/unittest
+BUILD_DIR = _build/unittest
 
 # install path
 INSTALL_DIR = install
