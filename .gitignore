@@ -70,3 +70,6 @@ mx.scratch
 #output folder
 build/
 install/
+
+core
+openocd.log
