@@ -71,4 +71,5 @@ mx.scratch
 build/
 install/
 
+core
 openocd.log
