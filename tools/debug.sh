@@ -8,7 +8,7 @@ FILENAME=$1
 
 if [ -f $FILENAME ]; then
 	if [ "$2" = "socket" ]; then
-	    xterm -T "openocd -f board/stm32f4discovery.cfg" -e "openocd -f board/stm32f4discovery.cfg" &
+	    xterm -T "openocd -f board/st_nucleo_f0.cfg" -e "openocd -f board/st_nucleo_f0.cfg" &
 	    OPENOCD_PID=$!
 	    arm-none-eabi-gdb -tui -x tools/gdb-socket.cfg $FILENAME
 	    kill $OPENOCD_PID
