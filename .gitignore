@@ -73,3 +73,5 @@ install/
 
 core
 openocd.log
+
+mk/build.num

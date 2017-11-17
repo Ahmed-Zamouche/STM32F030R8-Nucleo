@@ -40,11 +40,10 @@ LIB_OBJECTS:=$(subst main,lib_main,$(OBJECTS))
 
 library: all $(INSTALL_DIR)
 	cp $(BUILD_DIR)/main.o $(BUILD_DIR)/lib_main.o
-	$(AR)  rcs $(INSTALL_DIR)/lib/lib$(TARGET).a $(LIB_OBJECTS)	
+	$(AR)  rcs $(INSTALL_DIR)/lib/lib$(TARGET).a $(LIB_OBJECTS)
 	cp -r include  $(INSTALL_DIR)/
 	cp $(LDSCRIPT) $(INSTALL_DIR)/lib/$(TARGET).ld
 	$(shell echo -n ${BUILD_NUM} > ${BUILD_NUM_FILE})
 	
 $(INSTALL_DIR):
 	mkdir -p $@/lib
-	
