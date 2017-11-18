@@ -177,6 +177,8 @@ vpath %.c $(sort $(dir $(C_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
+include mk/help.mk
+
 unittest: library
 	$(MAKE) -f mk/unittest.mk
 
