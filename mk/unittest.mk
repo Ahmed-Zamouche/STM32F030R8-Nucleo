@@ -15,7 +15,7 @@
 ######################################
 TARGET = STM32F030R8-Nucleo
 
-
+OPENOCD_CFG:=board/st_nucleo_f0.cfg
 ######################################
 # building variables
 ######################################
@@ -29,7 +29,8 @@ OPT = -Og
 # paths
 #######################################
 # source path
-SOURCES_DIR = Unittest
+SOURCES_DIR=Unittest
+UNITY_ROOT=thirdparty/Unity
 
 # firmware library path
 PERIFLIB_PATH =
@@ -44,7 +45,16 @@ INSTALL_DIR = install
 # source
 ######################################
 # C sources
-C_SOURCES = Unittest/Test.c
+C_SOURCES=\
+Unittest/unity_port.c \
+$(UNITY_ROOT)/src/unity.c \
+$(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
+
+C_SOURCES += \
+Unittest/test/TestSys.c \
+Unittest/test/test_runners/all_tests.c \
+Unittest/test/test_runners/TestSys_Runner.c \
+  
 # ASM sources
 ASM_SOURCES =
 
@@ -92,14 +102,17 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 AS_DEFS =
 
 # C defines
-C_DEFS =
+C_DEFS = -DUNITY_INCLUDE_CONFIG_H
 
 
 # AS includes
 AS_INCLUDES =
 
 # C includes
-C_INCLUDES =  -I$(INSTALL_DIR)/include
+C_INCLUDES = \
+-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src \
+-I$(INSTALL_DIR)/include \
+-IUnittest 
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
@@ -131,7 +144,14 @@ LDFLAGS = $(MCU) -specs=nosys.specs -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
-
+#######################################
+# unittest flash / debug
+#######################################
+flash: $(BUILD_DIR)/$(TARGET).elf
+	tools/flash.sh $(OPENOCD_CFG) $<
+debug: $(BUILD_DIR)/$(TARGET).elf
+	tools/debug.sh $(OPENOCD_CFG) $< pipe
+	
 #######################################
 # build the application
 #######################################

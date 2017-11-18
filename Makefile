@@ -86,10 +86,20 @@ PERIFLIB_SOURCES =
 # binaries
 #######################################
 ifeq ($(OS),Windows_NT)
-BINPATH="C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
-else
-BINPATH=~/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
+ BINPATH="C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
+  ifeq ($(shell uname -s),) # not in a bash-like shell
+   CLEANUP = del /F /Q
+   MKDIR = mkdir
+  else # in a bash-like shell, like msys
+   CLEANUP = rm -f
+   MKDIR = mkdir -p
+  endif  
+ else
+ BINPATH=~/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
+ CLEANUP = rm -f
+ MKDIR = mkdir -p
 endif
+
 PREFIX = arm-none-eabi-
 CC = $(BINPATH)/$(PREFIX)gcc
 AS = $(BINPATH)/$(PREFIX)gcc -x assembler-with-cpp
@@ -179,9 +189,18 @@ vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
 include mk/help.mk
 
+#######################################
+# unittest flash / debug
+#######################################
 unittest: library
 	$(MAKE) -f mk/unittest.mk
-
+unittest_flash: unittest
+	$(MAKE) -f mk/unittest.mk flash
+unittest_debug: unittest_flash
+	$(MAKE) -f mk/unittest.mk debug
+unittest_clean:
+	$(MAKE) -f mk/unittest.mk clean
+	
 include mk/library.mk
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)

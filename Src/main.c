@@ -67,7 +67,7 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN 0 */
 
-__weak int mainApp(int argc, char **argv) {
+__weak int main(int argc, char **argv) {
 
 	for (;;) {
 		//led_set(LED_1, true);
@@ -86,7 +86,7 @@ __weak int mainApp(int argc, char **argv) {
 
 /* USER CODE END 0 */
 
-int main(void)
+int lib_main(void)
 {
 
   /* USER CODE BEGIN 1 */
@@ -125,7 +125,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-  mainApp(1, (char **)&"mainApp");
+  main(1, (char **)&"mainApp");
 
   while (1)
   {

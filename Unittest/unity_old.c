@@ -43,7 +43,7 @@ static void Exception_Rise(void)
 	HAL_NVIC_SetPendingIRQ(0);*/
 }
 
-int mainApp(int argc, char **argv) {
+int main(int argc, char **argv) {
 
 	Pwm_CallbackRegister(PWM_CHANNEL_1, Led_Pwm_Callback);
 	Button_CallbackRegister(PWM_CHANNEL_1, Button_Callback);
