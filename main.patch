@@ -1,0 +1,57 @@
+diff --git a/Src/main.c b/Src/main.c
+index 2dc3650..c7b22b3 100644
+--- a/Src/main.c
++++ b/Src/main.c
+@@ -67,7 +67,7 @@ void SystemClock_Config(void);
+ 
+ /* USER CODE BEGIN 0 */
+ 
+-__weak int mainApp(int argc, char **argv) {
++__weak int main(int argc, char **argv) {
+ 
+ 	for (;;) {
+ 		//led_set(LED_1, true);
+@@ -86,7 +86,7 @@ __weak int mainApp(int argc, char **argv) {
+ 
+ /* USER CODE END 0 */
+ 
+-int main(void)
++int lib_main(void)
+ {
+ 
+   /* USER CODE BEGIN 1 */
+@@ -125,7 +125,7 @@ int main(void)
+   /* Infinite loop */
+   /* USER CODE BEGIN WHILE */
+ 
+-  mainApp(1, (char **)&"mainApp");
++  main(1, (char **)&"mainApp");
+ 
+   while (1)
+   {
+diff --git a/Unittest/Test.c b/Unittest/Test.c
+index a6ee84b..96b7c0c 100644
+--- a/Unittest/Test.c
++++ b/Unittest/Test.c
+@@ -43,7 +43,7 @@ static void Exception_Rise(void)
+ 	HAL_NVIC_SetPendingIRQ(0);*/
+ }
+ 
+-int mainApp(int argc, char **argv) {
++int main(int argc, char **argv) {
+ 
+ 	Pwm_CallbackRegister(PWM_CHANNEL_1, Led_Pwm_Callback);
+ 	Button_CallbackRegister(PWM_CHANNEL_1, Button_Callback);
+diff --git a/startup_stm32f030x8.s b/startup_stm32f030x8.s
+index 98147fe..e9fbc84 100644
+--- a/startup_stm32f030x8.s
++++ b/startup_stm32f030x8.s
+@@ -101,7 +101,7 @@ LoopFillZerobss:
+ /* Call static constructors */
+   bl __libc_init_array
+ /* Call the application's entry point.*/
+-  bl main
++  bl lib_main
+ 
+ LoopForever:
+     b LoopForever
