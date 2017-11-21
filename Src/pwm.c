@@ -55,11 +55,9 @@ static void Pwm_TimerPeriodElapsedCallback(void){
 			} else if (pwmObj->actual > pwmObj->target) {
 				pwmObj->actual--;
 			} else {
-				Port_EnterCritical();
 				if (pwmObj->target == 0) {
 					s_numEnabledChannels--;
 				}
-				Port_ExitCritical();
 			}
 			pwmObj->fader = 0;
 		}
@@ -71,11 +69,9 @@ static void Pwm_TimerPeriodElapsedCallback(void){
 		pwmObj->fader++;
 
 	}
-	Port_EnterCritical();
 	if (s_numEnabledChannels == 0) {
 		Pwm_TimerStop();
 	}
-	Port_ExitCritical();
 }
 
 static void Pwm_DefaultCallback(bool ena){
