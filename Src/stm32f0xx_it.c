@@ -203,7 +203,9 @@ void CustomDefault_HandlerC(uint32_t *stack) {
 
 	}
 }
-void __attribute__ ((noinline)) CustomDefault_Handler(void)
+
+__attribute__( ( naked ) )
+void CustomDefault_Handler(void)
 {
 	volatile static int dummy = -1;
 
@@ -218,8 +220,8 @@ void __attribute__ ((noinline)) CustomDefault_Handler(void)
 	    " mrs r0, msp      			\n"
 	  "_HALT:              			\n"
 	    " ldr r1,[r0,#20]  			\n"
-	    " b CustomDefault_HandlerC 	\n"
-	    /*" bkpt #0          			\n"*/
+	    " b CustomDefault_HandlerC	\n"
+	    /*" bkpt #0          		\n"*/
 	  );
 
     (void) dummy;

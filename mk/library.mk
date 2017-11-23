@@ -44,6 +44,5 @@ library: all $(INSTALL_DIR)
 	cp -r include  $(INSTALL_DIR)/
 	cp $(LDSCRIPT) $(INSTALL_DIR)/lib/$(TARGET).ld
 	$(shell echo -n ${BUILD_NUM} > ${BUILD_NUM_FILE})
-	
 $(INSTALL_DIR):
 	mkdir -p $@/lib

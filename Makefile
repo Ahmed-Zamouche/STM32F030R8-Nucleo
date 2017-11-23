@@ -87,6 +87,7 @@ PERIFLIB_SOURCES =
 #######################################
 ifeq ($(OS),Windows_NT)
  BINPATH="C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
+# MAKE:="$(MAKE)"
   ifeq ($(shell uname -s),) # not in a bash-like shell
    CLEANUP = del /F /Q
    MKDIR = mkdir

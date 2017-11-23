@@ -120,9 +120,11 @@ LoopForever:
     .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
-  bl CustomDefault_Handler
+  ldr   r0, =CustomDefault_Handler
+  bx r0
+  b Infinite_Loop
   .size Default_Handler, .-Default_Handler
-/******************************************************************************
+/********************************l**********************************************
 *
 * The minimal vector table for a Cortex M0.  Note that the proper constructs
 * must be placed on this to ensure that it ends up at physical address

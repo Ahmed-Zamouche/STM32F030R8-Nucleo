@@ -75,3 +75,4 @@ core
 openocd.log
 
 mk/build.num
+/Default/
