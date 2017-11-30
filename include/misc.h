@@ -11,8 +11,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include <stdint.h>
 
-void delay_ms(uint16_t);
+void delay_ms(uint16_t ms);
 
 #ifdef __cplusplus
 }

@@ -5,8 +5,8 @@
  *      Author: ahmed
  */
 
-#ifndef INC_LED_H_
-#define INC_LED_H_
+#ifndef INCLUDE_LED_H_
+#define INCLUDE_LED_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,4 +31,4 @@ void Led_Init(void);
 }
 #endif
 
-#endif /* INC_LED_H_ */
+#endif /* INCLUDE_LED_H_ */

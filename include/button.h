@@ -5,8 +5,8 @@
  *      Author: ahmed
  */
 
-#ifndef INC_BUTTON_H_
-#define INC_BUTTON_H_
+#ifndef INCLUDE_BUTTON_H_
+#define INCLUDE_BUTTON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,6 +34,8 @@ typedef enum Button_e Button_Handel_t;
 /*---------------------------------------------------------------------------*/
 void Button_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 
+void Button_GenerateSWIT(enum Button_e idx);
+
 void Button_CallbackRegister(enum Button_e, Button_Callback_t);
 
 bool Button_IsPressed(enum Button_e);
@@ -46,4 +48,4 @@ void Button_Init(void);
 }
 #endif
 
-#endif /* INC_BUTTON_H_ */
+#endif /* INCLUDE_BUTTON_H_ */

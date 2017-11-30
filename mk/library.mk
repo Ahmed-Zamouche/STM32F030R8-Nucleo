@@ -38,10 +38,13 @@ C_INCLUDES +=
 #LIB_OBJECTS=$(OBJECTS)
 LIB_OBJECTS:=$(subst main,lib_main,$(OBJECTS))
 
+INSTALL_INCLUDE+=./include/*
+
 library: all $(INSTALL_DIR)
 	cp $(BUILD_DIR)/main.o $(BUILD_DIR)/lib_main.o
 	$(AR)  rcs $(INSTALL_DIR)/lib/lib$(TARGET).a $(LIB_OBJECTS)
-	cp -r include  $(INSTALL_DIR)/
+	mkdir -p $(INSTALL_DIR)/include
+	cp -r $(INSTALL_INCLUDE)  $(INSTALL_DIR)/include
 	cp $(LDSCRIPT) $(INSTALL_DIR)/lib/$(TARGET).ld
 	$(shell echo -n ${BUILD_NUM} > ${BUILD_NUM_FILE})
 $(INSTALL_DIR):

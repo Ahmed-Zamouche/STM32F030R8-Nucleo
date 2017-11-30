@@ -28,6 +28,7 @@ struct Pwm_s
 /*---------------------------------------------------------------------------*/
 static struct Pwm_s s_pwm[PWM_CHANNEL_NUM];
 static uint8_t s_numEnabledChannels;
+static uint8_t s_faderPrescaler = 0x80;
 /*---------------------------------------------------------------------------*/
 static void Pwm_TimerPeriodElapsedCallback(void);
 static void Pwm_DefaultCallback(bool ena);
@@ -48,7 +49,7 @@ static void Pwm_TimerPeriodElapsedCallback(void){
 
 		struct Pwm_s *pwmObj = &s_pwm[idx];
 
-		if (pwmObj->fader & 0x80) {
+		if (pwmObj->fader & s_faderPrescaler) {
 
 			if (pwmObj->actual < pwmObj->target) {
 				pwmObj->actual++;
@@ -91,6 +92,11 @@ void Pwm_SetDutyCycle(enum Pwm_Channel_e ch, uint8_t value)
 	s_pwm[ch].target = value;
 
 	Port_ExitCritical();
+}
+
+void Pwm_SetFaderPrescaler(uint8_t prescaler)
+{
+	s_faderPrescaler = prescaler;
 }
 
 void Pwm_CallbackRegister(enum Pwm_Channel_e ch, Pwm_Callback_t cb){

@@ -113,6 +113,7 @@ int lib_main(void)
   MX_GPIO_Init();
   MX_TIM6_Init();
   MX_USART1_UART_Init();
+  MX_TIM14_Init();
 
   /* USER CODE BEGIN 2 */
   Console_Init();

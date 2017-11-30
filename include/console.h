@@ -5,8 +5,8 @@
  *      Author: ahmed
  */
 
-#ifndef INC_CONSOLE_H_
-#define INC_CONSOLE_H_
+#ifndef INCLUDE_CONSOLE_H_
+#define INCLUDE_CONSOLE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,4 +64,4 @@ void Console_Init(void);
 }
 #endif
 
-#endif /* INC_CONSOLE_H_ */
+#endif /* INCLUDE_CONSOLE_H_ */

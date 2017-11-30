@@ -20,9 +20,9 @@ OPENOCD_CFG:=board/st_nucleo_f0.cfg
 # building variables
 ######################################
 # debug build?
-DEBUG = 1
+DEBUG = 0
 # optimization
-OPT = -Og
+OPT = -O3
 
 
 #######################################
@@ -52,8 +52,12 @@ $(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
 
 C_SOURCES += \
 Unittest/test/TestSys.c \
+Unittest/test/TestEvents.c \
+Unittest/test/TestFFT.c \
 Unittest/test/test_runners/all_tests.c \
 Unittest/test/test_runners/TestSys_Runner.c \
+Unittest/test/test_runners/TestEvents_Runner.c \
+Unittest/test/test_runners/TestFFT_Runner.c \
   
 # ASM sources
 ASM_SOURCES =

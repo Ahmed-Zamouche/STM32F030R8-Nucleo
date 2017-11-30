@@ -46,6 +46,11 @@ void Button_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 }
 
+void Button_GenerateSWIT(enum Button_e idx)
+{
+	__HAL_GPIO_EXTI_GENERATE_SWIT(s_buttonDef[BUTTON_1].GPIO_Pin);
+}
+
 bool Button_IsPressed(enum Button_e idx) {
 
 	assert(idx < BUTTON_NUM);
