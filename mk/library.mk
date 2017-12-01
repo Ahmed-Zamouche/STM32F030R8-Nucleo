@@ -12,7 +12,7 @@ INSTALL_DIR = install
 # source
 ######################################
 # C sources
-C_SOURCES += misc.c console.c button.c led.c pwm.c
+C_SOURCES += misc.c console.c button.c led.c pwm.c timer.c
 #pwm.c
 
 # ASM sources

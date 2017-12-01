@@ -5,10 +5,26 @@
  *      Author: Ahmed.Z
  */
 
-#include <stdint.h>
+
+#include <assert.h>
+
+#include "tim.h"
 
 #include "timer.h"
 
-uint32_t usTick;
+void timer_start(enum Timer_e tmr){
+	(void) tmr;
+	assert(HAL_TIM_Base_Start(&htim14) == HAL_OK);
+}
+
+void timer_stop(enum Timer_e tmr){
+	(void) tmr;
+	assert(HAL_TIM_Base_Stop(&htim14) == HAL_OK);
+}
+
+uint32_t timer_counterValue(enum Timer_e tmr){
+	(void) tmr;
+	return __HAL_TIM_GET_COUNTER(&htim14);
+}
 
 

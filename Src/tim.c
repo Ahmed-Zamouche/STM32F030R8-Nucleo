@@ -69,9 +69,9 @@ void MX_TIM14_Init(void)
   htim14.Instance = TIM14;
   htim14.Init.Prescaler = 47;
   htim14.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim14.Init.Period = 0;
+  htim14.Init.Period = 1;
   htim14.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim14.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  htim14.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim14) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -86,9 +86,9 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
   {
   /* USER CODE BEGIN TIM6_MspInit 0 */
 	  /*
-	   * Freq = 20E3
+	   * Freq = 20Khz
 	   * Prescaler = ((SystemCoreClock / Freq) - 1)
-	   * Period = ((Freq/ 10E3) - 1)
+	   * Period = ((Freq/ 10Khz) - 1)
 	   * */
 
   /* USER CODE END TIM6_MspInit 0 */
