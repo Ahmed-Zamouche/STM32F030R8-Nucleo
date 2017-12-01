@@ -195,13 +195,13 @@ include mk/help.mk
 # unittest flash / debug
 #######################################
 unittest: library
-	$(MAKE) -f mk/unittest.mk
+	"$(MAKE)" -f mk/unittest.mk
 unittest_flash: unittest
-	$(MAKE) -f mk/unittest.mk flash
+	"$(MAKE)" -f mk/unittest.mk flash
 unittest_debug: unittest_flash
-	$(MAKE) -f mk/unittest.mk debug
+	"$(MAKE)" -f mk/unittest.mk debug
 unittest_clean:
-	$(MAKE) -f mk/unittest.mk clean
+	"$(MAKE)" -f mk/unittest.mk clean
 	
 include mk/library.mk
 
