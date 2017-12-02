@@ -22,7 +22,7 @@ TARGET = STM32F030R8-Nucleo
 # debug build?
 DEBUG = 0
 # optimization
-OPT = -O3
+OPT = -O2
 
 
 #######################################
