@@ -45,8 +45,9 @@ static inline void Complex_Copy(Complex_t *des, Complex_t *src)
 __attribute__((always_inline))
 static inline void TwiddleFactor(Complex_t *c, size_t k, size_t log_2_n)
 {
-	c->re = twiddle_factor_re[ (k << LOG_2_FFT_X_N) >> log_2_n ];
-	c->im = twiddle_factor_im[ (k << LOG_2_FFT_X_N) >> log_2_n ];
+	size_t i =  (k << LOG_2_FFT_X_N-log_2_n);
+	c->re = twiddle_factor_re[i];
+	c->im = twiddle_factor_im[i];
 }
 
 void fft_recursive(Complex_t *X, size_t log_2_n)
