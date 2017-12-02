@@ -8,6 +8,7 @@
 #include "fft.h"
 #include "timer.h"
 #include "console.h"
+#include "misc.h"
 
 TEST_GROUP(FFT);
 
