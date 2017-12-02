@@ -14,12 +14,12 @@
 
 void timer_start(enum Timer_e tmr){
 	(void) tmr;
-	assert(HAL_TIM_Base_Start(&htim14) == HAL_OK);
+	HAL_TIM_Base_Start(&htim14);
 }
 
 void timer_stop(enum Timer_e tmr){
 	(void) tmr;
-	assert(HAL_TIM_Base_Stop(&htim14) == HAL_OK);
+	HAL_TIM_Base_Stop(&htim14);
 }
 
 uint32_t timer_counterValue(enum Timer_e tmr){
