@@ -16,7 +16,6 @@ TEST_GROUP(FFT);
 
 TEST_SETUP(FFT)
 {
-
 }
 
 TEST_TEAR_DOWN(FFT)
@@ -49,10 +48,11 @@ TEST(FFT, Algorithm)
 		Console_Puts(CONSOLE_1, str);
 	}
 	sprintf(str, "];\n(X=X/128);\nplot(sqrt(X(:,1).^2+X(:,2).^2));\n");
-	sprintf(str, "\n%ldus\n", (end - start));
+	sprintf(str, "\n%ldus\n", (end - start) - timer_overheadValue());
 	Console_Puts(CONSOLE_1, str);
 	TEST_ASSERT(1);
 
 
 }
+
 
