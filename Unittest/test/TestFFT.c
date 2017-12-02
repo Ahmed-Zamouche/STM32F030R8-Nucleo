@@ -41,13 +41,15 @@ TEST(FFT, Algorithm)
 	timer_stop(TIMER_1);
 
 	char str[128];
-	sprintf(str, "X=[\n");
+	sprintf(str, "\nX=[\n");
 	Console_Puts(CONSOLE_1, str);
 	for (int i = 0; i < (FFT_X_N/2); ++i) {
-		sprintf(str, "%d, %d;\n", X[i].re, X[i].im);
+		sprintf(str, "%d, %d;", X[i].re, X[i].im);
 		Console_Puts(CONSOLE_1, str);
+		if((i+1)%24 == 0)Console_Puts(CONSOLE_1, "\n");
 	}
 	sprintf(str, "];\n(X=X/128);\nplot(sqrt(X(:,1).^2+X(:,2).^2));\n");
+	Console_Puts(CONSOLE_1, str);
 	sprintf(str, "\n%ldus\n", (end - start) - timer_overheadValue());
 	Console_Puts(CONSOLE_1, str);
 	TEST_ASSERT(1);

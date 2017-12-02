@@ -22,7 +22,7 @@ OPENOCD_CFG:=board/st_nucleo_f0.cfg
 # debug build?
 DEBUG = 0
 # optimization
-OPT = -O2
+OPT = -O3
 
 
 #######################################
