@@ -50,7 +50,7 @@ TEST(FFT, Algorithm)
 	}
 	sprintf(str, "];\n(X=X/128);\nplot(sqrt(X(:,1).^2+X(:,2).^2));\n");
 	Console_Puts(CONSOLE_1, str);
-	sprintf(str, "\n%ldus\n", (end - start) - timer_overheadValue());
+	sprintf(str, "\n%ldus\n", (end - start) - timer_overheadValue(TIMER_1));
 	Console_Puts(CONSOLE_1, str);
 	TEST_ASSERT(1);
 
