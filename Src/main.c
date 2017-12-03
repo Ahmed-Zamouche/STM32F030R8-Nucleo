@@ -48,6 +48,7 @@
 #include "button.h"
 #include "led.h"
 #include "pwm.h"
+#include "timer.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/

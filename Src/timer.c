@@ -39,7 +39,7 @@ uint32_t timer_counterValue(enum Timer_e tmr){
 uint32_t timer_overheadValue(enum Timer_e tmr)
 {
    static int init = 0;
-   static int32_t  s_overhead[TIMER_NUM];
+   static int32_t  overhead[TIMER_NUM];
 
     if(init == 0)
     {
@@ -52,13 +52,13 @@ uint32_t timer_overheadValue(enum Timer_e tmr)
 
         timer_stop(tmr);
 
-        overhead = (end - start);
+        overhead[tmr] = (end - start);
 
        init = 1;
 
     }
 
-    return (uint32_t) s_overhead[tmr];
+    return (uint32_t) overhead[tmr];
 }
 
 void Timer_Init(void) {
