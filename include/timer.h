@@ -26,4 +26,6 @@ uint32_t timer_counterValue(enum Timer_e);
 
 uint32_t timer_overheadValue(enum Timer_e);
 
+void Timer_Init(void);
+
 #endif /* INCLUDE_TIMER_H_ */
