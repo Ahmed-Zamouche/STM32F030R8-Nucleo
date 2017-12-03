@@ -12,19 +12,27 @@
 
 #include "timer.h"
 
+/*---------------------------------------------------------------------------*/
+struct Timer_Def_s {
+
+   TIM_HandleTypeDef* htim;
+};
+/*---------------------------------------------------------------------------*/
+static const struct Timer_Def_s  s_timerDef[TIMER_NUM] = {{.htim = &htim14,}};
+/*---------------------------------------------------------------------------*/
 void timer_start(enum Timer_e tmr){
-	(void) tmr;
-	HAL_TIM_Base_Start(&htim14);
+   (void) tmr;
+   HAL_TIM_Base_Start(s_timerDef[tmr].htim);
 }
 
 void timer_stop(enum Timer_e tmr){
-	(void) tmr;
-	HAL_TIM_Base_Stop(&htim14);
+   (void) tmr;
+   HAL_TIM_Base_Stop(s_timerDef[tmr].htim);
 }
 
 uint32_t timer_counterValue(enum Timer_e tmr){
-	(void) tmr;
-	return __HAL_TIM_GET_COUNTER(&htim14);
+   (void) tmr;
+   return __HAL_TIM_GET_COUNTER(s_timerDef[tmr].htim);
 }
 
 uint32_t timer_overheadValue(void)
