@@ -24,6 +24,7 @@ void timer_stop(enum Timer_e tmr){
 
 uint32_t timer_counterValue(enum Timer_e tmr){
 	(void) tmr;
+	/**@note: TIM14 is 16 bits only*/
 	return __HAL_TIM_GET_COUNTER(&htim14);
 }
 
