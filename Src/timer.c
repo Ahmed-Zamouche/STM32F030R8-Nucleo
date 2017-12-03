@@ -35,7 +35,7 @@ uint32_t timer_counterValue(enum Timer_e tmr){
    return __HAL_TIM_GET_COUNTER(s_timerDef[tmr].htim);
 }
 
-uint32_t timer_overheadValue(void)
+uint32_t timer_overheadValue(enum Timer_e tmr)
 {
     static int32_t overhead = -1;
 
@@ -43,12 +43,12 @@ uint32_t timer_overheadValue(void)
     {
        uint32_t start, end;
 
-        timer_start(TIMER_1);
+        timer_start(tmr);
 
-        start = timer_counterValue(TIMER_1);
-        end = timer_counterValue(TIMER_1);
+        start = timer_counterValue(tmr);
+        end = timer_counterValue(tmr);
 
-        timer_stop(TIMER_1);
+        timer_stop(tmr);
 
         overhead = (end - start);
     }
