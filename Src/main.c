@@ -120,7 +120,7 @@ int lib_main(void)
   Button_Init();
   Led_Init();
   Pwm_Init();
-
+  Timer_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
