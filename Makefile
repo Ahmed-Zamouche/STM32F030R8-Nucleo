@@ -20,9 +20,9 @@ TARGET = STM32F030R8-Nucleo
 # building variables
 ######################################
 # debug build?
-DEBUG = 0
+DEBUG = 1
 # optimization
-OPT = -O3
+OPT = -Og
 
 
 #######################################
@@ -35,7 +35,7 @@ Application \
 Application/MAKEFILE \
 Drivers/CMSIS \
 Drivers/STM32F0xx_HAL_Driver \
-Application/User
+Source
 
 # firmware library path
 PERIFLIB_PATH =
@@ -172,13 +172,15 @@ LDSCRIPT = STM32F030R8Tx_FLASH.ld
 # libraries
 LIBS = -lc -lm -lnosys
 LIBDIR =
-LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,--print-memory-usage -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
 
 
 include lib/dsp/fft/fft.mk
+include mk/help.mk
+include mk/library.mk
 #######################################
 # build the application
 #######################################
@@ -189,7 +191,7 @@ vpath %.c $(sort $(dir $(C_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
-include mk/help.mk
+LIB_OBJECTS:=$(subst main,lib_main,$(OBJECTS))
 
 #######################################
 # unittest flash / debug
@@ -202,8 +204,6 @@ unittest_debug: unittest_flash
 	"$(MAKE)" -f mk/unittest.mk debug
 unittest_clean:
 	"$(MAKE)" -f mk/unittest.mk clean
-	
-include mk/library.mk
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@

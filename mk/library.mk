@@ -12,8 +12,14 @@ INSTALL_DIR = install
 # source
 ######################################
 # C sources
-C_SOURCES += misc.c console.c button.c led.c pwm.c timer.c
-#pwm.c
+C_SOURCES +=  \
+Source/misc.c \
+Source/console.c \
+Source/button.c \
+Source/led.c \
+Source/pwm.c \
+Source/timer.c \
+Source/logger.c \
 
 # ASM sources
 ASM_SOURCES +=
@@ -35,8 +41,7 @@ C_INCLUDES +=
 # build the library
 #######################################
 # list of objects
-#LIB_OBJECTS=$(OBJECTS)
-LIB_OBJECTS:=$(subst main,lib_main,$(OBJECTS))
+#LIB_OBJECTS:=$(subst main,lib_main,$(OBJECTS))
 
 INSTALL_INCLUDE+=./include/*
 

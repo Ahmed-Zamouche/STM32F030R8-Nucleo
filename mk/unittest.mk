@@ -20,9 +20,9 @@ OPENOCD_CFG:=board/st_nucleo_f0.cfg
 # building variables
 ######################################
 # debug build?
-DEBUG = 0
+DEBUG = 1
 # optimization
-OPT = -O3
+OPT = -Og
 
 
 #######################################
@@ -143,7 +143,7 @@ LIBS = -lc -lm -lnosys
 LIBS += -Wl,--whole-archive $(INSTALL_DIR)/lib/lib$(TARGET).a -Wl,--no-whole-archive
 
 LIBDIR =
-LDFLAGS = $(MCU) -specs=nosys.specs -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+LDFLAGS = $(MCU) -specs=nosys.specs -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,--print-memory-usage -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
