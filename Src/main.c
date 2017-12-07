@@ -44,11 +44,13 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "misc.h"
 #include "console.h"
 #include "button.h"
 #include "led.h"
 #include "pwm.h"
 #include "timer.h"
+#include "logger.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -118,6 +120,8 @@ int lib_main(void)
 
   /* USER CODE BEGIN 2 */
   Console_Init();
+  Logger_Init();
+  Logger_Print(LOGGER_LEVEL_INFO, "Low-level Init\r\n");
   Button_Init();
   Led_Init();
   Pwm_Init();
@@ -126,7 +130,7 @@ int lib_main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  Logger_Print(LOGGER_LEVEL_INFO, "calling main\r\n");
   main(1, (char **)&"mainApp");
 
   while (1)
