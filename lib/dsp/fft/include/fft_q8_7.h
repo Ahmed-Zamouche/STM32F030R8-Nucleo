@@ -15,7 +15,6 @@
  */
 
 typedef int16_t Q8_7_t;
-typedef int32_t Q16_14_t;
 
 #define Q8_7_MAX INT16_MAX
 #define Q8_7_MIN INT16_MIN
@@ -35,9 +34,9 @@ typedef struct Polar_s{
 __attribute__((always_inline))
 static inline Q8_7_t _Add(Q8_7_t a, Q8_7_t b) {
 	Q8_7_t c;
-	Q16_14_t temp;
+	int32_t temp;
 
-	temp = (Q16_14_t) a + b;
+	temp = (int32_t) a + b;
 
 	if (temp > Q8_7_MAX)		/*saturate the result before assignment*/
 		c = Q8_7_MAX;
@@ -51,9 +50,9 @@ static inline Q8_7_t _Add(Q8_7_t a, Q8_7_t b) {
 __attribute__((always_inline))
 static inline Q8_7_t _Sub(Q8_7_t a, Q8_7_t b) {
 	Q8_7_t c;
-	Q16_14_t temp;
+	int32_t temp;
 
-	temp = (Q16_14_t) a - b;
+	temp = (int32_t) a - b;
 
 	if (temp > Q8_7_MAX)		/*saturate the result before assignment*/
 		c = Q8_7_MAX;
@@ -67,9 +66,9 @@ static inline Q8_7_t _Sub(Q8_7_t a, Q8_7_t b) {
 __attribute__((always_inline))
 static inline Q8_7_t _Mul(Q8_7_t a, Q8_7_t b) {
 	Q8_7_t c;
-	Q16_14_t temp;
+	int32_t temp;
 
-	temp = (Q16_14_t) a * b; 	/*Cast operands to 16 bits and multiply*/
+	temp = (int32_t) a * b; 	/*Cast operands to 16 bits and multiply*/
 	temp +=  (1 << (Q8_7_SHIFT-1));	 	/*add 1/2 to give correct rounding*/
 	temp >>= Q8_7_SHIFT;				 	/*divide by 2^7*/
 	if (temp > Q8_7_MAX)		/*saturate the result before assignment*/
@@ -84,8 +83,8 @@ static inline Q8_7_t _Mul(Q8_7_t a, Q8_7_t b) {
 __attribute__((always_inline))
 static inline Q8_7_t _Div(Q8_7_t a, Q8_7_t b) {
 	Q8_7_t c;
-	Q16_14_t temp;
-	temp = (Q16_14_t) a << Q8_7_SHIFT; 	/* cast operand to 32 bits and shift*/
+	int32_t temp;
+	temp = (int32_t) a << Q8_7_SHIFT; 	/* cast operand to 32 bits and shift*/
 	temp += b >> 1; 			/*Add b/2 to give correct rounding*/
 	temp /= b;					/*Perform the division (expensive!)*/
 	c = temp;					/*Truncate and assign result*/
