@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdarg.h>
+#include <assert.h>
 
 #include <console.h>
 #include <logger.h>
@@ -32,48 +33,37 @@ void Logger_SetLevel(const enum LoggerLevel_e level)
 	s_level = level;
 }
 
-void Logger_print(const enum LoggerLevel_e level, const char *func, const char * msg) {
+void Logger_printf(const enum LoggerLevel_e level, const char *func,
+		const char *format, ...) {
 
-	if (level <= s_level) {
-
-		while (Console_Write(CONSOLE_1, NULL, 0) == CONSOLE_STATUS_BUSY) {
-			;
-		}
-
-		int n = snprintf(s_buffer, LOGGER_BUFFER_SIZE, "L:[%s] %s() %s",
-				Logger_Level2Str(level), func, msg);
-		if (n > 0) {
-			while (
-					Console_Write(CONSOLE_1, (uint8_t *) s_buffer, n)
-					== CONSOLE_STATUS_BUSY) {
-				;
-			}
-		}
+	if (level > s_level) {
+		return;
 	}
-}
-
-void Logger_printf(const enum LoggerLevel_e level, const char *func, const char *format, ...)
-{
-
-	if (level <= s_level) {
-		while (Console_Write(CONSOLE_1, NULL, 0) == CONSOLE_STATUS_BUSY) {
-			;
-		}
-		int n = snprintf(s_buffer, LOGGER_BUFFER_SIZE, "L:[%s] %s() ",
-				Logger_Level2Str(level), func);
-		if(n > 0){
-			va_list argptr;
-			va_start(argptr, format);
-			n += vsnprintf(&s_buffer[n], (LOGGER_BUFFER_SIZE - n), format, argptr);
-			va_end(argptr);
-		}
-		if (n > 0) {
-			while (Console_Write(CONSOLE_1, (uint8_t *) s_buffer, n)
-					== CONSOLE_STATUS_BUSY) {
-				;
-			}
-		}
+	//FIXME: blocking write
+	while (Console_Write(CONSOLE_1, NULL, 0) == CONSOLE_STATUS_BUSY) {
+		;
 	}
+
+	int n = snprintf(s_buffer, LOGGER_BUFFER_SIZE, "L:[%s] %s() ",
+			Logger_Level2Str(level), func);
+
+	assert(n >= 0);
+	va_list argptr;
+	va_start(argptr, format);
+	n += vsnprintf(&s_buffer[n], (LOGGER_BUFFER_SIZE - n), format, argptr);
+	va_end(argptr);
+	assert(n >= 0);
+
+	n += snprintf(&s_buffer[n], (LOGGER_BUFFER_SIZE - n), "\r\n");
+
+	assert(n >= 0);
+
+	//FIXME: blocking write
+	while (Console_Write(CONSOLE_1, (uint8_t *) s_buffer, n)
+			== CONSOLE_STATUS_BUSY) {
+		;
+	}
+
 }
 
 

@@ -121,7 +121,7 @@ int lib_main(void)
   /* USER CODE BEGIN 2 */
   Console_Init();
   Logger_Init();
-  Logger_Print(LOGGER_LEVEL_INFO, "Low-level Init\r\n");
+  Logger_Printf(LOGGER_LEVEL_INFO, "Low-level Init");
   Button_Init();
   Led_Init();
   Pwm_Init();
@@ -130,7 +130,7 @@ int lib_main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  Logger_Print(LOGGER_LEVEL_INFO, "calling main\r\n");
+  Logger_Printf(LOGGER_LEVEL_INFO, "calling main");
   main(1, (char **)&"mainApp");
 
   while (1)
