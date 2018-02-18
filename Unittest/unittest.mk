@@ -75,7 +75,7 @@ PERIFLIB_SOURCES =
 ifeq ($(OS),Windows_NT)
 BINPATH="C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin"
 else
-BINPATH=~/opt/gcc-arm-none-eabi-6-2017-q2-update/bin
+BINPATH=~/opt/gcc-arm-none-eabi-latest/bin
 endif
 PREFIX = arm-none-eabi-
 CC = $(BINPATH)/$(PREFIX)gcc
