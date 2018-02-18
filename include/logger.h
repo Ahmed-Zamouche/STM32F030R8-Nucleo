@@ -26,19 +26,17 @@ typedef enum LoggerLevel_e
 
 void Logger_SetLevel(const enum LoggerLevel_e);
 
-void Logger_print(const enum LoggerLevel_e, const char *fun, const char *);
-
-void Logger_printf(const enum LoggerLevel_e, const char *fun, const char* format, ...);
-
-#define Logger_Print(level, msg) \
-	do{\
-		Logger_print(level, __FUNCTION__, msg);\
-	}while(0)
+void Logger_printf(const enum LoggerLevel_e, const char *fun, const char* format, ...)
+#ifdef __GNUC__
+    __attribute__((format(printf, 3, 4)))
+#endif
+;
 
 #define Logger_Printf(level, format, ...) \
 	do{\
-		Logger_printf(level, __FUNCTION__, format,  __VA_ARGS__);\
+		Logger_printf(level, __FUNCTION__, format,  ##__VA_ARGS__);\
 	}while(0)
+
 
 void Logger_Init(void);
 

@@ -147,6 +147,24 @@ Console_Status_t Console_ReadLine(enum Console_e idx, uint8_t *pData, uint16_t S
 	return (Console_Status_t) status;
 }
 
+Console_Status_t Console_Getc(enum Console_e idx, char *pch)
+{
+	assert(idx < CONSOLE_NUM);
+
+	HAL_StatusTypeDef status = HAL_UART_Receive(s_consoleDef[idx].huart, (uint8_t *) pch,
+			1, HAL_MAX_DELAY);
+	return (Console_Status_t) status;
+}
+
+Console_Status_t Console_Putc(enum Console_e idx, const char ch)
+{
+	assert(idx < CONSOLE_NUM);
+
+	HAL_StatusTypeDef status = HAL_UART_Transmit(s_consoleDef[idx].huart, (uint8_t *) &ch,
+			1, HAL_MAX_DELAY);
+	return (Console_Status_t) status;
+}
+
 Console_Status_t Console_Puts(enum Console_e idx, const char *str) {
 
 	assert(idx < CONSOLE_NUM);

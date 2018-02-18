@@ -52,6 +52,10 @@ void Console_CallbackWriteRegister(enum Console_e idx, Console_CallbackWrite_t);
 
 Console_Status_t Console_ReadLine(enum Console_e, uint8_t *pData, uint16_t Size);
 
+Console_Status_t Console_Getc(enum Console_e, char *);
+
+Console_Status_t Console_Putc(enum Console_e, const char);
+
 Console_Status_t Console_Puts(enum Console_e, const char *);
 
 Console_Status_t Console_WriteAbort(enum Console_e);
