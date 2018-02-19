@@ -151,6 +151,9 @@ Console_Status_t Console_Getc(enum Console_e idx, char *pch)
 {
 	assert(idx < CONSOLE_NUM);
 
+	__HAL_UART_CLEAR_FEFLAG(s_consoleDef[idx].huart);
+	__HAL_UART_CLEAR_OREFLAG(s_consoleDef[idx].huart);
+
 	HAL_StatusTypeDef status = HAL_UART_Receive(s_consoleDef[idx].huart, (uint8_t *) pch,
 			1, HAL_MAX_DELAY);
 	return (Console_Status_t) status;
